@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: investudy-file-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: investudy-file-manager
+  template:
+    metadata:
+      labels:
+        app: investudy-file-manager
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: investudy-file-manager
+          image: investudy/file-manager:0.0.9
+          ports:
+          - containerPort: 80
+          env:
+            - name: PORT
+              value: "80" 
