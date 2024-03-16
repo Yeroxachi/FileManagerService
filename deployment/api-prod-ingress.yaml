@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: investudy-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+spec:
+  tls:
+  - hosts:
+    - image-api.investudy.app
+    secretName: investudy-image-cert
+  rules:
+  - host: image-api.investudy.app
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: investudy-file-manager-loadbalancer
+            port:
+              number: 80
